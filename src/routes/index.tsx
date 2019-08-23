@@ -5,9 +5,10 @@ import BlankLayout from 'layouts/BlankLayout';
 import HomeLayout from 'layouts/HomeLayout';
 
 import Recommend from 'containers/Recommend';
-import Album from 'containers/Ablum';
+import Album from 'containers/Album';
+import { RouteConfig } from 'react-router-config';
 
-const routes = [
+const routes:RouteConfig[] = [
   {
     component: BlankLayout,
     routes: [
@@ -25,10 +26,10 @@ const routes = [
           {
             path: '/recommend',
             key: 'recommend',
-            exact: true,
             component: Recommend,
             routes:[{
               path: '/recommend/:id',
+              exact: true,
               component: Album,
             }]
           }
