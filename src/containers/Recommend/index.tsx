@@ -19,7 +19,7 @@ export type recommendType = {
   playCount: number;
 }
 
-interface RecommandProps  extends RouteConfig{
+interface RecommendProps  extends RouteConfig{
   bannerList: bannerType[];
   recommendList: recommendType[];
   enterLoading: boolean;
@@ -27,7 +27,7 @@ interface RecommandProps  extends RouteConfig{
   getRecommendListDataDispatch: any;
 }
 
-const Recommend:React.FC<RecommandProps> = ({
+const Recommend:React.FC<RecommendProps> = ({
   bannerList,
   recommendList,
   enterLoading,

@@ -34,7 +34,7 @@ const Header = React.forwardRef((props:HeaderProps, ref) => {
   const { handleClick = () => {}, title="标题", isMarquee=false} = props;
   return (
     <HeaderContainer ref={ref as any}>
-      <i className="iconfont back"  onClick={handleClick}>&#xe655;</i>
+      <i className="iconfont back" onClick={handleClick}>&#xe6e5;</i>
       {
         // eslint-disable-next-line
         isMarquee ?

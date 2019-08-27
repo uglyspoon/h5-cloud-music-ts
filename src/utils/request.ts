@@ -1,11 +1,11 @@
 import axios, {AxiosResponse, AxiosRequestConfig} from 'axios';
-// import qs from 'qs';
-// import { Cookies } from 'react-cookie';
-// import { notification } from 'antd';
 
-// const cookie = new Cookies();
 
-axios.defaults.baseURL = 'http://localhost:3300';
+
+export const baseUrl = 'http://localhost:3300';
+
+
+axios.defaults.baseURL = baseUrl;
 // axios.defaults.headers.common['Authorization'] = cookie.get('token');
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -15,6 +15,24 @@ const handleError = (error:any) => {
   //   description: `状态码:${error.status}| ${error.data.message}`
   // })
 }
+
+
+// axios的实例及拦截器配置
+const axiosInstance = axios.create({
+  baseURL: baseUrl
+});
+
+axiosInstance.interceptors.response.use(
+  res => res.data,
+  err => {
+    console.log(err, "网络错误");
+  }
+);
+
+export {
+  axiosInstance
+};
+
 const request = ({url ,data, method='post', ...rest }: AxiosRequestConfig) => {
   return axios({
     url,

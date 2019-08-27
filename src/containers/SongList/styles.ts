@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import style from 'assets/globalStyle';
 
+interface SongListProps {
+  showBackground:boolean;
+  ref: any;
+}
 export const SongList = styled.div`
   border-radius: 10px;
   opacity: 0.98;
-  ${(props:any) => props.showBackground ? `background: ${style["highlight-background-color"]}`: ""}
+  ${(props: SongListProps) => props.showBackground ? `background: ${style["highlight-background-color"]}`: ""}
   .first_line{
     box-sizing: border-box;
     padding: 10px 0;

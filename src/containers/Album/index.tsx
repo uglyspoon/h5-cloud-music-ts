@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState} from 'react';
+import React, { useRef, useEffect, useState, useCallback} from 'react';
 import { withRouter, RouteComponentProps, RouteProps,  } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from "react-redux";
@@ -9,7 +9,10 @@ import Scroll from 'components/Scroll';
 import style from 'assets/globalStyle';
 import { HEADER_HEIGHT } from 'utils/config';
 import { RouteConfigComponentProps } from 'react-router-config';
-
+import AlbumDetail from 'components/AlbumDetail';
+import  * as actionTypes from './store/actionCreators';
+import { LoadingContainer } from 'assets/globalStyle';
+import Loading from 'components/Loading';
 
 interface AlbumProps extends RouteConfigComponentProps{
   currentAlbum: any;
@@ -35,6 +38,17 @@ const Album: React.FC<AlbumProps> = ({
   const handleBack = () => history.goBack()
   const [isMarquee, setIsMarquee] = useState(false);
   const { params: { id } } = match;
+
+  useEffect(() => {
+    const pathName = history.location.pathname;
+    let urlStr:string = "";
+    if (/recommend/.test(pathName)) {
+      urlStr = "/recommend";
+    } else if (/rank/.test(pathName)) {
+      urlStr = "/rank";
+    }
+    getAlbumDataDispatch(id, urlStr)
+  }, [id, history.location.pathname, getAlbumDataDispatch])
 
   const handleScroll = (pos:any) => {
     let minScrollY = -HEADER_HEIGHT;
@@ -70,19 +84,40 @@ const Album: React.FC<AlbumProps> = ({
     >
       <Container >
         <Header ref={headerEl} title={title} handleClick={handleBack} isMarquee={isMarquee}></Header>
-        <Scroll
-          onScroll={(pos:any) => handleScroll(pos)}
-          pullUp={() => handlePullUp()}
-          pullUpLoading={pullUpLoading}
-          bounceTop={false}
-        >
-          {/* <AlbumDetail currentAlbum={currentAlbum} pullUpLoading={pullUpLoading} musicAnimation={musicAnimation}></AlbumDetail> */}
-          123
-        </Scroll>
+        {
+          Object.keys(currentAlbum).length !== 0 ? (
+            <Scroll
+              onScroll={(pos: any) => handleScroll(pos)}
+              pullUp={() => handlePullUp()}
+              pullUpLoading={pullUpLoading}
+              bounceTop={false}
+            >
+              <AlbumDetail currentAlbum={currentAlbum} />
+            </Scroll>
+          ) : null
+        }
+        {loading ? <LoadingContainer><Loading /></LoadingContainer> : null}
+        {/* <MusicNote ref={musicNoteRef}></MusicNote> */}
       </Container>
     </CSSTransition>
   )
 };
 
+// 映射Redux全局的state到组件的props上
+const mapStateToProps = (state: any) => ({
+  currentAlbum: state.album.currentAlbum,
+  loading:state.album.loading,
+});
+// 映射dispatch到props上
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getAlbumDataDispatch(id:number, fromURL:string) {
+      dispatch(actionTypes.getAlbumList(id, fromURL));
+    },
+    changePullUpLoadingStateDispatch(loading:boolean) {
+      dispatch(actionTypes.changePullUpLoading(loading));
+    }
+  }
+};
 
-export default connect()(React.memo(withRouter(Album)));
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(withRouter(Album)));
