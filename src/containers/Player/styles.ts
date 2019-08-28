@@ -63,7 +63,7 @@ export const Top = styled.div`
       font-size: 24px;
       color: ${style["font-color-desc"]};
       font-weight: bold;
-      transform: rotate(90deg);
+      // transform: rotate(90deg);
     }
   }
   .title {

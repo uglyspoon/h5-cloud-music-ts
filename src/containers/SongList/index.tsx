@@ -22,7 +22,7 @@ const SongsList = React.forwardRef((props: SongListProps, refs) => {
 
   const [startIndex, setStartIndex] = useState(0);
 
-  const { songs, collectCount, showCollect=false, loading = false, usePageSplit=false, showBackground=false } = props;
+  const { songs=[], collectCount, showCollect=true, loading = false, usePageSplit=false, showBackground=false } = props;
 
   const { musicAnimation } = props;
 
@@ -68,7 +68,7 @@ const SongsList = React.forwardRef((props: SongListProps, refs) => {
   const collect = (count:number) => {
     return (
       <div className="add_list">
-        <i className="iconfont">&#xe62d;</i>
+        <i className="iconfont">&#xe600;</i>
         <span>收藏({Math.floor(count / 1000) / 10}万)</span>
       </div>
       // <div className="isCollected">
@@ -80,7 +80,7 @@ const SongsList = React.forwardRef((props: SongListProps, refs) => {
     <SongList ref={refs as any} showBackground={showBackground}>
       <div className="first_line">
         <div className="play_all" onClick={(e) => selectItem(e, 0)}>
-          <i className="iconfont">&#xe6e3;</i>
+          <i className="iconfont">&#xe73d;</i>
           <span>播放全部 <span className="sum">(共{totalCount}首)</span></span>
         </div>
         {showCollect ? collect(collectCount) : null}
@@ -95,10 +95,10 @@ const SongsList = React.forwardRef((props: SongListProps, refs) => {
 
 // 映射Redux全局的state到组件的props上
 const mapStateToProps = (state:any) => ({
-  fullScreen: state.getIn(['player', 'fullScreen']),
-  playing: state.getIn(['player', 'playing']),
-  currentSong: state.getIn(['player', 'currentSong']),
-  scrollY: state.getIn(['album', 'scrollY'])
+  fullScreen: state.player.fullScreen,
+  playing: state.player.playing,
+  currentSong: state.player.currentSong,
+  scrollY: state.player.scrollY,
 });
 // 映射dispatch到props上
 const mapDispatchToProps = (dispatch:any) => {

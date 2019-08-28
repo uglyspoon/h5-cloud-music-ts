@@ -2,7 +2,7 @@ import { CHANGE_CURRENT_ALBUM, CHANGE_LOADING,CHANGE_PULL_UP_LOADING } from './c
 // import {axiosInstance} from 'utils/request';
 import { getRecommendListDetailRequest } from './services';
 
-const changeCurrentAlbum = (data:any) => ({
+export const changeCurrentAlbum = (data:any) => ({
   type: CHANGE_CURRENT_ALBUM,
   data
 });

@@ -7,6 +7,7 @@ export interface AlbumDetailProps {
   pullUpLoading: boolean;
   musicAnimation?: boolean;
 }
+
 function AlbumDetail(props:any) {
   const { currentAlbum, pullUpLoading, musicAnimation } = props;
 
@@ -76,8 +77,10 @@ function AlbumDetail(props:any) {
     <div>
       {renderTopDesc()}
       {renderMenu()}
-      {/* {renderSongList()} */}
+      {renderSongList()}
     </div>
   )
 }
+
+
 export default React.memo(AlbumDetail);

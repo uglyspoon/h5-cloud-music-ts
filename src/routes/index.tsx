@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
-import Login from '../containers/login';
+// import Login from '../containers/login';
 import BlankLayout from 'layouts/BlankLayout';
 import HomeLayout from 'layouts/HomeLayout';
 
@@ -37,7 +37,7 @@ const routes:RouteConfig[] = [
       },
       {
         path: "/user",
-        component: Login,//userLoadyout
+        component: BlankLayout,//userLoadyout
       }
     ]
   }
