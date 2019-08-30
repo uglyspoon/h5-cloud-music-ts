@@ -11,13 +11,17 @@ const defaultState = {
   mode: playMode.sequence,
   currentIndex: -1,
   showPlayList: false,
-  currentSong: {}
+  currentSong: {},
+  lyrics: {
+    lyric:"",
+    tlyric:""
+  }
 };
 
 const handleInsertSong = (state:any, song:any) => {
-  const playList = JSON.parse(JSON.stringify(state.get('playList').toJS()));
-  const sequenceList = JSON.parse(JSON.stringify(state.get('sequencePlayList').toJS()));
-  let currentIndex = state.get('currentIndex');
+  const playList = JSON.parse(JSON.stringify(state.playList));
+  const sequenceList = JSON.parse(JSON.stringify(state.sequencePlayList));
+  let currentIndex = state.currentIndex;
   //看看有没有同款
   let fpIndex = findIndex(song, playList);
   // 如果是当前歌曲直接不处理
@@ -46,17 +50,16 @@ const handleInsertSong = (state:any, song:any) => {
       sequenceList.splice(fsIndex + 1, 1);
     }
   }
-  return state.merge({
-    'playList': playList,
-    'sequencePlayList': sequenceList,
-    'currentIndex': currentIndex,
-  });
+  
+  state.playList = playList;
+  state.sequencePlayList = sequenceList
+  state.currentIndex = currentIndex
 }
 
 const handleDeleteSong = (state:any, song:any) => {
-  const playList = JSON.parse(JSON.stringify(state.get('playList').toJS()));
-  const sequenceList = JSON.parse(JSON.stringify(state.get('sequencePlayList').toJS()));
-  let currentIndex = state.get('currentIndex');
+  const playList = JSON.parse(JSON.stringify(state.playList));
+  const sequenceList = JSON.parse(JSON.stringify(state.sequencePlayList));
+  let currentIndex = state.currentIndex;
 
   const fpIndex = findIndex(song, playList);
   playList.splice(fpIndex, 1);
@@ -65,11 +68,9 @@ const handleDeleteSong = (state:any, song:any) => {
   const fsIndex = findIndex(song, sequenceList);
   sequenceList.splice(fsIndex, 1);
 
-  return state.merge({
-    'playList': playList,
-    'sequencePlayList': sequenceList,
-    'currentIndex': currentIndex,
-  });
+  state.playList = playList;
+  state.sequencePlayList = sequenceList
+  state.currentIndex = currentIndex
 }
 
 
@@ -105,6 +106,9 @@ export default (state = defaultState, action:any) => {
         break;
       case actionTypes.DELETE_SONG:
         handleDeleteSong(draft, action.data);
+        break;
+      case actionTypes.SET_CURRENT_LYRICS:
+        draft.lyrics = action.data;
         break;
     }
   })

@@ -1,3 +1,4 @@
+import { HEADER_HEIGHT } from 'utils/config';
 import styled, { keyframes } from 'styled-components';
 import style from 'assets/globalStyle';
 
@@ -87,16 +88,46 @@ export const Middle = styled.div`
   width: 100%;
   top: 80px;
   bottom: 170px;
-  white-space: nowrap;
+  // white-space: nowrap;
   font-size: 0;
   >div{
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    margin: auto;
-    width: 100%;
-    height: 0;
-    padding-top: 80%;
+    &.cdContainer {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      margin: auto;
+      width: 100%;
+      height: 0;
+      padding-top: 80%;
+    }
+    &.lyricContainer {
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      margin: auto;
+      width: 100%;
+      height: 80%;
+    }
+  }
+`
+export const LyricWrapper = styled.ul`
+  position: absolute;
+  margin: auto;
+  top: 10%; left: 0; right: 0;
+  width: 80%;
+  box-sizing: border-box;
+  height: 100%;
+  overflow:hidden;
+  text-align:center;
+  
+  li {
+    line-height:32px;
+    // margin: 10px 0;
+    font-size: 16px;
+    &.current {
+      color: #fff;
+      font-size: 18px;
+    }
   }
 `
 export const CDWrapper = styled.div`
@@ -204,10 +235,12 @@ export const MiniPlayer = styled.div`
   background: ${style["highlight-background-color"]};
   &.mini-enter{
     transform: translate3d(0, 100%, 0);
+    transform: scale(0.9)
   }
   &.mini-enter-active{
     transform: translate3d(0, 0, 0);
     transition: all 0.4s;
+    transform: scale(1)
   }
   &.mini-exit-active{
     transform: translate3d(0, 100%, 0);

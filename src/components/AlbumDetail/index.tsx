@@ -69,7 +69,7 @@ function AlbumDetail(props:any) {
         loading={pullUpLoading}
         musicAnimation={musicAnimation}
         showBackground={true}
-      ></SongsList>
+      />
     )
   };
 

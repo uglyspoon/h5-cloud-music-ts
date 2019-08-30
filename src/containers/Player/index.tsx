@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import {
   MiniPlayer,
@@ -8,7 +8,8 @@ import {
   Bottom,
   ProgressWrapper,
   Operators,
-  CDWrapper
+  CDWrapper,
+  LyricWrapper
 } from './styles';
 import { CSSTransition } from "react-transition-group";
 import ProgressCircle from 'components/ProgressCircle';
@@ -19,7 +20,8 @@ import {
   changeCurrentIndex,
   changeCurrentSong,
   changePlayList,
-  changePlayMode
+  changePlayMode,
+  getSongLyric,
 } from './store/actionCreators';
 import { getName, isEmptyObject, shuffle, findIndex, prefixStyle, formatPlayTime } from 'utils';
 import animations from 'create-keyframe-animation'
@@ -27,8 +29,29 @@ import ProgressBar from 'components/ProgressBar';
 import PlayList from './PlayList';
 import { playMode } from 'utils/config';
 import Toast from 'components/Toast';
+import moment from 'moment';
+import Scroll from 'components/Scroll';
 
+interface iLyricItemProps  {
+  time: any;
+  lyric: string;
+}
 
+function formatTimeToMillionSeconds(time:string) {
+  let formatTime = moment(time, 'mm:ss:SSS')
+  let min = formatTime.get('minutes')
+  let seconds = formatTime.get('seconds')
+  let millionSec = formatTime.get('milliseconds')
+  return min * 60 + seconds * 1 + millionSec / 1000
+}
+function findIndexOfLyric(array: iLyricItemProps[], time:number):number {
+  // array.forEach((item, idx)=> {
+  //   if (item.time > time) {
+  //     return idx
+  //   }
+  // })
+  return  array.findIndex(item => item.time > time)
+}
 function Player(props:any) {
   const [full, setFull] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -44,7 +67,7 @@ function Player(props:any) {
     playList,
     mode,
     sequencePlayList,
-    // fullScreen
+    lyrics
   } = props;
 
   const {
@@ -57,13 +80,16 @@ function Player(props:any) {
   } = props;
 
   const cdWrapperRef = useRef<HTMLDivElement>();
+  const lyricWrapperRef = useRef<HTMLDivElement>();
   const cdImageRef = useRef<HTMLImageElement>();
   const miniWrapperRef = useRef<HTMLDivElement>();
   const miniImageRef = useRef<HTMLImageElement>();
+  const scrollRef = useRef<HTMLDivElement>()
 
   const song = currentSong;
 
   const [preSong, setPreSong] = useState<any>({});
+  const [showLyric, setShowLyric] = useState<boolean>(false);
 
   //处理transform的浏览器兼容问题
   const transform:any = prefixStyle('transform');
@@ -72,6 +98,7 @@ function Player(props:any) {
   const normalPlayerRef = useRef<HTMLDivElement>();
   const miniPlayerRef = useRef<HTMLDivElement>();
   const toastRef = useRef<any>();
+  const [lyricArray, setLyricArray] = useState<iLyricItemProps[]>([])
 
   useEffect(() => {
     if (!playList.length || currentIndex === -1 || !playList[currentIndex] || playList[currentIndex].id === preSong.id) return;
@@ -82,6 +109,7 @@ function Player(props:any) {
     setSongReady(false);
     let current = playList[currentIndex];
     changeCurrentDispatch(current);
+    console.log('current123', current)
     setPreSong(current);
     audioRef.current!.src = `https://music.163.com/song/media/outer/url?id=${current.id}.mp3`;
     audioRef.current!.play();
@@ -97,6 +125,49 @@ function Player(props:any) {
   useEffect(() => {
     playing ? audioRef.current!.play() : audioRef.current!.pause();
   }, [playing])
+
+  const currentLyricIndex = findIndexOfLyric(lyricArray, currentTime)
+  useEffect(() => {
+    // console.log('currentTime', currentTime)
+    
+    console.log('index', currentLyricIndex)
+    if (showLyric) {
+      scrollRef.current!.scrollTo(0, -currentLyricIndex * 25)
+    }
+  }, [currentLyricIndex])
+
+  const sortFunc = useCallback((lyrics) => {
+    const { lyric, tlyric }: { lyric: string, tlyric:string } = lyrics
+    // console.log('lyric', lyric)
+    let lyricArray: iLyricItemProps[]|null  = []
+    let tlyricArray: iLyricItemProps[]|null = []
+    let pattern = /\[\d+:\d+.\d+\].*/g;
+    if (lyric) {
+      // lyricArray = lyric.match(pattern) || []
+      let lyricArray_temp = lyric.match(pattern) || []
+      lyricArray = lyricArray_temp.map(item => {
+        const ary = item.split(']');
+        return { time: formatTimeToMillionSeconds(ary[0].slice(1)), lyric: ary[1] }
+      })
+    }
+    if (tlyric) {
+      let tlyricArray_temp = tlyric.match(pattern) || []
+      tlyricArray = tlyricArray_temp.map(item => {
+        const ary = item.split(']');
+        return { time: ary[0].slice(1), lyric: ary[1]}
+      })
+    }
+    
+    return {
+      lyricArray,
+      tlyricArray
+    }
+  },[])
+  useEffect(() => {
+    const { lyricArray, tlyricArray} = sortFunc(lyrics);
+    console.log(lyricArray, tlyricArray)
+    setLyricArray(lyricArray)
+  }, [lyrics, sortFunc])
 
   const _getPosAndScale = () => {
     const targetWidth = 40;
@@ -137,26 +208,32 @@ function Player(props:any) {
         easing: 'linear'
       }
     });
-    animations.runAnimation(cdWrapperRef.current, 'move');
+    cdWrapperRef.current && animations.runAnimation(cdWrapperRef.current, 'move');
   }
 
   const afterEnter = () => {
-    const cdWrapperDom = cdWrapperRef.current!;
+    const cdWrapperDom = cdWrapperRef.current;
+    if (!cdWrapperDom) return 
     animations.unregisterAnimation('move');
     cdWrapperDom.style.animation = '';
   }
 
   const leave = () => {
-    const cdWrapperDom = cdWrapperRef.current!;
+    const cdWrapperDom = cdWrapperRef.current;
+    if (!cdWrapperDom) {
+      return 
+    }
     cdWrapperDom.style.transition = 'all 0.4s';
     const { x, y, scale } = _getPosAndScale();
     cdWrapperDom.style[transform] = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
   }
 
   const afterLeave = () => {
-    const cdWrapperDom = cdWrapperRef.current!;
-    cdWrapperDom.style.transition = ''
-    cdWrapperDom.style[transform] = '';
+    const cdWrapperDom = cdWrapperRef.current;
+    if (cdWrapperDom) {
+      cdWrapperDom.style.transition = ''
+      cdWrapperDom.style[transform] = '';
+    }
     normalPlayerRef.current!.style.display = 'none';
   }
 
@@ -251,8 +328,14 @@ function Player(props:any) {
   const handleError = () => {
     alert("播放出错");
   }
-
+  const toggleShowLyric = () => {
+    // cdWrapperRef.current!.style.display = 'none';
+    setShowLyric(!showLyric)
+    // lyricWrapperRef.current!.style.display='block';
+    
+  }
   const normalPlayer = () => {
+
     const song = currentSong;
     if (isEmptyObject(song)) return;
     return (
@@ -277,14 +360,31 @@ function Player(props:any) {
             <h1 className="title">{song.name}</h1>
             <h1 className="subtitle">{getName(song.ar)}</h1>
           </Top>
-          <Middle>
-            <div>
-              <CDWrapper ref={cdWrapperRef as any}>
-                <div className="cd" >
-                  <img ref={cdImageRef as any} className={`image play ${playing ? "" : "pause"}`} src={song.al.picUrl + "?param=400x400"} alt="" />
+          <Middle onClick={toggleShowLyric}>
+            {
+              showLyric ? 
+                <div className="lyricContainer">
+                  <LyricWrapper ref={lyricWrapperRef as any}>
+                    <Scroll ref={scrollRef as any}>
+                      <div>
+                        {lyricArray.map((el: iLyricItemProps, idx) => <li className={
+                          (idx !== lyricArray.length - 1 && currentTime < lyricArray[idx + 1].time && el.time < currentTime) ? 'current' : ''
+                        } key={`${el.time}_${idx}`}>{el.lyric}</li>)}
+                      </div>
+                    </Scroll>
+                  </LyricWrapper>
                 </div>
-              </CDWrapper>
-            </div>
+                :
+                <div className='cdContainer'>
+                  <CDWrapper ref={cdWrapperRef as any} >
+                    <div className="cd" >
+                      <img ref={cdImageRef as any} className={`image play ${playing ? "" : "pause"}`} src={song.al.picUrl + "?param=400x400"} alt="" />
+                    </div>
+                  </CDWrapper>
+                </div>
+            }
+            
+
           </Middle>
           <Bottom className="bottom">
             <ProgressWrapper>
@@ -384,6 +484,7 @@ const mapStateToProps = (state: any) => ({
   currentIndex: state.player.currentIndex,
   playList: state.player.playList,
   sequencePlayList: state.player.sequencePlayList,
+  lyrics: state.player.lyrics,
 });
 
 // 映射dispatch到props上
@@ -392,9 +493,6 @@ const mapDispatchToProps = (dispatch:any) => {
     togglePlayingDispatch(data:any) {
       dispatch(changePlayingState(data));
     },
-    // toggleFullScreenDispatch(data) {
-    //   dispatch(changeFullScreen(data))
-    // },
     togglePlayListDispatch(data: any) {
       dispatch(changeShowPlayList(data));
     },
@@ -403,6 +501,7 @@ const mapDispatchToProps = (dispatch:any) => {
     },
     changeCurrentDispatch(data: any) {
       dispatch(changeCurrentSong(data));
+      dispatch(getSongLyric(data.id))
     },
     changeModeDispatch(data:any) {
       dispatch(changePlayMode(data));

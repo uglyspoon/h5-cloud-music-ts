@@ -33,7 +33,7 @@ export const PullDownLoading = styled.div`
 `
 
 interface ScrollProps {
-  direction?: 'vertical' | 'horizental';
+  direction?: 'vertical' | 'horizontal';
   refresh?: boolean;
   onScroll?: any;
   pullUp?: any;
@@ -49,7 +49,7 @@ interface ScrollProps {
 const Scroll = forwardRef((props: ScrollProps, ref:any) => {
   const [bScroll, setBScroll] = useState();
 
-  const scrollContaninerRef = useRef<any>();
+  const scrollContainerRef = useRef<any>();
 
   const { direction="vertical", click=true, refresh=true, pullUpLoading=false, pullDownLoading=false, bounceTop=true, bounceBottom=true } = props;
 
@@ -57,8 +57,8 @@ const Scroll = forwardRef((props: ScrollProps, ref:any) => {
 
   useEffect(() => {
     if(bScroll) return;
-    const scroll = new BScroll(scrollContaninerRef.current, {
-      scrollX: direction === "horizental",
+    const scroll = new BScroll(scrollContainerRef.current, {
+      scrollX: direction === "horizontal",
       scrollY: direction === "vertical",
       probeType: 3,
       click,
@@ -113,13 +113,19 @@ const Scroll = forwardRef((props: ScrollProps, ref:any) => {
         bScroll.refresh();
         bScroll.scrollTo(0, 0);
       }
+    },
+    scrollTo(x:number, y:number) {
+      if (bScroll) {
+        bScroll.refresh();
+        bScroll.scrollTo(x, y);
+      }
     }
   }));
 
   const PullUpdisplayStyle = pullUpLoading ? { display: "" } : { display: "none" };
   const PullDowndisplayStyle = pullDownLoading ? { display: "" } : { display: "none" };
   return (
-    <ScrollContainer ref={scrollContaninerRef}>
+    <ScrollContainer ref={scrollContainerRef}>
       {props.children}
       {/* 滑到底部加载动画 */}
       <PullUpLoading style={ PullUpdisplayStyle }><Loading></Loading></PullUpLoading>

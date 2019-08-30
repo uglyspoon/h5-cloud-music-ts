@@ -1,5 +1,5 @@
-import { SET_CURRENT_SONG, SET_FULL_SCREEN, SET_PLAYING_STATE, SET_SEQUENCE_PLAYLIST, SET_PLAYLIST, SET_PLAY_MODE, SET_CURRENT_INDEX, SET_SHOW_PLAYLIST, DELETE_SONG, INSERT_SONG } from './constants';
-import { getSongDetailRequest } from './services';
+import { SET_CURRENT_SONG, SET_FULL_SCREEN, SET_PLAYING_STATE, SET_SEQUENCE_PLAYLIST, SET_PLAYLIST, SET_PLAY_MODE, SET_CURRENT_INDEX, SET_SHOW_PLAYLIST, DELETE_SONG, INSERT_SONG, SET_CURRENT_LYRICS } from './constants';
+import { getSongDetailRequest, getSongLyricRequest } from './services';
 
 export const changeCurrentSong = (data: any) => ({
   type: SET_CURRENT_SONG,
@@ -51,6 +51,11 @@ export const deleteSong = (data:any) => ({
   data
 });
 
+export const changeCurrentLyrics = (data: any) => ({
+  type: SET_CURRENT_LYRICS,
+  data
+});
+
 // const insertSong = (dispatch, getState, song) => {
 //   const playList = JSON.parse(JSON.stringify(getState().getIn(['player', 'playList']).toJS()));
 //   const sequenceList = JSON.parse(JSON.stringify(getState().getIn(['player', 'sequencePlayList']).toJS()));
@@ -96,6 +101,19 @@ export const getSongDetail = (id:number) => {
     getSongDetailRequest(id).then((data:any) => {
       let song = data.songs[0];
       dispatch(insertSong(song));
+    })
+  }
+}
+
+export const getSongLyric = (id: number) => {
+  return (dispatch: any) => {
+    getSongLyricRequest(id).then((data: any) => {
+      
+      let lyrics = {
+        lyric: data.lrc.lyric,
+        tlyric: data.tlyric.lyric
+      }
+      dispatch(changeCurrentLyrics(lyrics));
     })
   }
 }
