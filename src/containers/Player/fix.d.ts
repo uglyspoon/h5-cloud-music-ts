@@ -1,1 +1,1 @@
-declare module  'create-keyframe-animation' 
+declare module 'create-keyframe-animation';

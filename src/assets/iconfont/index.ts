@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const IconStyle = createGlobalStyle`
 
@@ -21,4 +21,4 @@ export const IconStyle = createGlobalStyle`
 }
 
 
-`
+`;

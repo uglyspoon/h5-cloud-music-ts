@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.style.ts';
-// import { Router } from "@reach/router";
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux'
-import { renderRoutes } from 'react-router-config'
+import { Provider } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 import store from './store';
 import { GlobalStyle } from './App.style';
@@ -20,6 +19,6 @@ const App: React.FC = () => {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;

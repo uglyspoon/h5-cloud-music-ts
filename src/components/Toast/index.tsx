@@ -9,7 +9,7 @@ const ToastWrapper = styled.div`
   z-index: 1000;
   width: 100%;
   height: 50px;
-  /* background: ${style["highlight-background-color"]}; */
+  /* background: ${style['highlight-background-color']}; */
   &.drop-enter{
     opacity: 0;
     transform: translate3d(0, 100%, 0);
@@ -28,11 +28,11 @@ const ToastWrapper = styled.div`
     line-height: 50px;
     text-align: center;
     color: #fff;
-    font-size: ${style["font-size-l"]};
+    font-size: ${style['font-size-l']};
   }
-`
+`;
 
-const Toast = forwardRef((props:any, ref) => {
+const Toast = forwardRef((props: any, ref) => {
   const [show, setShow] = useState(false);
   const [timer, setTimer] = useState<any>('');
   const { text } = props;
@@ -41,18 +41,20 @@ const Toast = forwardRef((props:any, ref) => {
     show() {
       if (timer) clearTimeout(timer);
       setShow(true);
-      setTimer(setTimeout(() => {
-        setShow(false)
-      }, 3000));
-    }
-  }))
+      setTimer(
+        setTimeout(() => {
+          setShow(false);
+        }, 3000)
+      );
+    },
+  }));
   return (
-    <CSSTransition in={show} timeout={300} classNames="drop" unmountOnExit>
+    <CSSTransition in={show} timeout={300} classNames='drop' unmountOnExit>
       <ToastWrapper>
-        <div className="text">{text}</div>
+        <div className='text'>{text}</div>
       </ToastWrapper>
     </CSSTransition>
-  )
+  );
 });
 
 export default React.memo(Toast);

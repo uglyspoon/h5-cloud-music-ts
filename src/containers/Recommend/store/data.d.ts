@@ -9,7 +9,7 @@ export interface recommendType {
   playCount: number;
 }
 
-export interface RecommendStateType  {
+export interface RecommendStateType {
   bannerList: bannerType[];
   recommendList: recommendType[];
   enterLoading: boolean;

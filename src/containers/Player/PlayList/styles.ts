@@ -8,39 +8,39 @@ export const PlayListWrapper = styled.div`
   top: 0;
   bottom: 0;
   z-index: 1000;
-  background-color: ${style["background-color-shadow"]};
-  &.list-fade-enter{
+  background-color: ${style['background-color-shadow']};
+  &.list-fade-enter {
     opacity: 0;
   }
-  &.list-fade-enter-active{
+  &.list-fade-enter-active {
     opacity: 1;
     transition: all 0.3s;
   }
-  &.list-fade-exit{
+  &.list-fade-exit {
     opacity: 1;
   }
-  &.list-fade-exit-active{
+  &.list-fade-exit-active {
     opacity: 0;
     transition: all 0.3s;
   }
-  .list_wrapper{
+  .list_wrapper {
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
     opacity: 1;
     border-radius: 10px 10px 0 0;
-    background-color: ${style["highlight-background-color"]};
+    background-color: ${style['highlight-background-color']};
     transform: translate3d(0, 0, 0);
-    .list_close{
+    .list_close {
       text-align: center;
       line-height: 50px;
-      background: ${style["background-color"]};
-      font-size: ${style["font-size-l"]};
-      color: ${style["font-color-desc"]};
+      background: ${style['background-color']};
+      font-size: ${style['font-size-l']};
+      color: ${style['font-color-desc']};
     }
   }
-`
+`;
 
 export const ListHeader = styled.div`
   position: relative;
@@ -52,25 +52,25 @@ export const ListHeader = styled.div`
       flex:1;
       .text{
         flex: 1;
-        font-size: ${style["font-size-m"]};
-        color: ${style["font-color-desc"]};
+        font-size: ${style['font-size-m']};
+        color: ${style['font-color-desc']};
       }
     }
     .iconfont {
       margin-right: 10px;
-      font-size: ${style["font-size-ll"]};
-      color: ${style["theme-color"]};
+      font-size: ${style['font-size-ll']};
+      color: ${style['theme-color']};
     }
     .clear{
       ${style.extendClick()}
-      font-size: ${style["font-size-l"]};
+      font-size: ${style['font-size-l']};
     }
   }
-`
+`;
 export const ScrollWrapper = styled.div`
   height: 400px;
   overflow: hidden;
-`
+`;
 
 export const ListContent = styled.div`
   .item{
@@ -88,28 +88,28 @@ export const ListContent = styled.div`
     .current{
       flex: 0 0 20px;
       width: 20px;
-      font-size: ${style["font-size-s"]};
-      color: ${style["theme-color"]};
+      font-size: ${style['font-size-s']};
+      color: ${style['theme-color']};
     }
     .text{
       flex: 1;
       ${style.noWrap()}
-      font-size: ${style["font-size-m"]};
-      color: ${style["font-color-desc-v2"]};
+      font-size: ${style['font-size-m']};
+      color: ${style['font-color-desc-v2']};
       .icon-favorite{
-        color: ${style["theme-color"]};
+        color: ${style['theme-color']};
       }
     }
     .like{
       ${style.extendClick()}
       margin-right: 15px;
-      font-size: ${style["font-size-m"]};
-      color: ${style["theme-color"]};
+      font-size: ${style['font-size-m']};
+      color: ${style['theme-color']};
     }
     .delete{
       ${style.extendClick()}
-      font-size: ${style["font-size-s"]};
-      color: ${style["theme-color"]};
+      font-size: ${style['font-size-s']};
+      color: ${style['theme-color']};
     }
   }
-`
+`;

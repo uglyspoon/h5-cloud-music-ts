@@ -1,25 +1,28 @@
-import React, {useEffect} from 'react';
-import { connect } from "react-redux";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Content } from './styles';
 import Slider from 'components/Slider';
-import { bannerType } from 'components/Slider'
-import { renderRoutes, RouteConfigComponentProps, RouteConfig } from 'react-router-config';
+import { bannerType } from 'components/Slider';
+import {
+  renderRoutes,
+  RouteConfigComponentProps,
+  RouteConfig,
+} from 'react-router-config';
 import RecommendList from 'components/List';
 import { forceCheck } from 'react-lazyload';
 import * as actionTypes from './store/actionCreators';
 import Scroll from 'components/Scroll';
-import { EnterLoading, } from 'assets/globalStyle';
-import Loading from 'components/Loading/v2'
-
+import { EnterLoading } from 'assets/globalStyle';
+import Loading from 'components/Loading/v2';
 
 export type recommendType = {
   name: string;
   id: number;
   picUrl: string;
   playCount: number;
-}
+};
 
-interface RecommendProps  extends RouteConfig{
+interface RecommendProps extends RouteConfig {
   bannerList: bannerType[];
   recommendList: recommendType[];
   enterLoading: boolean;
@@ -27,19 +30,19 @@ interface RecommendProps  extends RouteConfig{
   getRecommendListDataDispatch: any;
 }
 
-const Recommend:React.FC<RecommendProps> = ({
+const Recommend: React.FC<RecommendProps> = ({
   bannerList,
   recommendList,
   enterLoading,
   getBannerDataDispatch,
   getRecommendListDataDispatch,
-  route
+  route,
 }) => {
   useEffect(() => {
-    if(!bannerList.length){
+    if (!bannerList.length) {
       getBannerDataDispatch();
     }
-    if(!recommendList.length){
+    if (!recommendList.length) {
       getRecommendListDataDispatch();
     }
   }, []);
@@ -51,11 +54,15 @@ const Recommend:React.FC<RecommendProps> = ({
           <RecommendList recommendList={recommendList}></RecommendList>
         </div>
       </Scroll>
-      {enterLoading ? <EnterLoading><Loading></Loading></EnterLoading> : null}
-      { renderRoutes(route.routes) }
+      {enterLoading ? (
+        <EnterLoading>
+          <Loading></Loading>
+        </EnterLoading>
+      ) : null}
+      {renderRoutes(route.routes)}
     </Content>
-  )
-}
+  );
+};
 
 // 映射Redux全局的state到组件的props上
 const mapStateToProps = (state: any) => ({
@@ -73,8 +80,11 @@ const mapDispatchToProps = (dispatch: any) => {
     getRecommendListDataDispatch() {
       dispatch(actionTypes.getRecommendList());
     },
-  }
+  };
 };
 
 // 将ui组件包装成容器组件
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Recommend));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Recommend));

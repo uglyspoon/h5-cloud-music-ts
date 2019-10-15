@@ -13,12 +13,12 @@ const defaultState = {
   showPlayList: false,
   currentSong: {},
   lyrics: {
-    lyric:"",
-    tlyric:""
-  }
+    lyric: '',
+    tlyric: '',
+  },
 };
 
-const handleInsertSong = (state:any, song:any) => {
+const handleInsertSong = (state: any, song: any) => {
   const playList = JSON.parse(JSON.stringify(state.playList));
   const sequenceList = JSON.parse(JSON.stringify(state.sequencePlayList));
   let currentIndex = state.currentIndex;
@@ -50,13 +50,13 @@ const handleInsertSong = (state:any, song:any) => {
       sequenceList.splice(fsIndex + 1, 1);
     }
   }
-  
-  state.playList = playList;
-  state.sequencePlayList = sequenceList
-  state.currentIndex = currentIndex
-}
 
-const handleDeleteSong = (state:any, song:any) => {
+  state.playList = playList;
+  state.sequencePlayList = sequenceList;
+  state.currentIndex = currentIndex;
+};
+
+const handleDeleteSong = (state: any, song: any) => {
   const playList = JSON.parse(JSON.stringify(state.playList));
   const sequenceList = JSON.parse(JSON.stringify(state.sequencePlayList));
   let currentIndex = state.currentIndex;
@@ -69,40 +69,39 @@ const handleDeleteSong = (state:any, song:any) => {
   sequenceList.splice(fsIndex, 1);
 
   state.playList = playList;
-  state.sequencePlayList = sequenceList
-  state.currentIndex = currentIndex
-}
+  state.sequencePlayList = sequenceList;
+  state.currentIndex = currentIndex;
+};
 
-
-export default (state = defaultState, action:any) => {
+export default (state = defaultState, action: any) => {
   return produce(state, draft => {
     switch (action.type) {
       case actionTypes.SET_CURRENT_SONG:
-        draft.currentSong = action.data
+        draft.currentSong = action.data;
         break;
       case actionTypes.SET_FULL_SCREEN:
-        draft.fullScreen = action.data
+        draft.fullScreen = action.data;
         break;
       case actionTypes.SET_PLAYING_STATE:
-        draft.playing = action.data
+        draft.playing = action.data;
         break;
       case actionTypes.SET_SEQUENCE_PLAYLIST:
-        draft.sequencePlayList = action.data
+        draft.sequencePlayList = action.data;
         break;
       case actionTypes.SET_PLAYLIST:
-        draft.playList = action.data
+        draft.playList = action.data;
         break;
       case actionTypes.SET_PLAY_MODE:
-        draft.mode = action.data
+        draft.mode = action.data;
         break;
       case actionTypes.SET_CURRENT_INDEX:
-        draft.currentIndex = action.data
+        draft.currentIndex = action.data;
         break;
       case actionTypes.SET_SHOW_PLAYLIST:
-        draft.showPlayList = action.data
+        draft.showPlayList = action.data;
         break;
       case actionTypes.INSERT_SONG:
-        handleInsertSong(draft, action.data)
+        handleInsertSong(draft, action.data);
         break;
       case actionTypes.DELETE_SONG:
         handleDeleteSong(draft, action.data);
@@ -111,5 +110,5 @@ export default (state = defaultState, action:any) => {
         draft.lyrics = action.data;
         break;
     }
-  })
-}
+  });
+};

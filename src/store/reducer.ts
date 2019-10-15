@@ -7,7 +7,6 @@ import albumReducer from '../containers/Album/store/reducer';
 import playerReducer from '../containers/Player/store/reducer';
 // import { reducer as searchReducer } from '../application/Search/store/index';
 
-
 export default combineReducers({
   recommend: recommendReducer,
   // singers: singersReducer,

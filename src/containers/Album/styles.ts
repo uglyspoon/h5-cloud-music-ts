@@ -6,37 +6,39 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: ${(props:any) => props.play > 0 ? "60px": 0};
+  bottom: ${(props: any) => (props.play > 0 ? '60px' : 0)};
   width: 100%;
   z-index: 100;
   overflow: hidden;
   background: #f2f3f4;
   transform-origin: right bottom;
-  &.fly-enter, &.fly-appear{
+  &.fly-enter,
+  &.fly-appear {
     // transform: rotateZ(30deg) translate3d(100%, 0, 0);
     opacity: 0;
     transform: scale(1.1);
   }
-  &.fly-enter-active, &.fly-appear-active{
+  &.fly-enter-active,
+  &.fly-appear-active {
     // transition: transform .3s;
     // transform: rotateZ(0deg) translate3d(0, 0, 0);
     opacity: 1;
     transform: scale(1);
     transition: opacity 300ms, transform 300ms;
   }
-  &.fly-exit{
+  &.fly-exit {
     // transform: rotateZ(0deg) translate3d(0, 0, 0);
     opacity: 1;
     transform: scale(1);
   }
-  &.fly-exit-active{
+  &.fly-exit-active {
     // transition: transform .3s;
     // transform: rotateZ(30deg) translate3d(100%, 0, 0);
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 300ms, transform 300ms;
   }
-`
+`;
 export const TopDesc = styled.div`
   background-size: 100%;
   padding: 5px 20px;
@@ -50,7 +52,7 @@ export const TopDesc = styled.div`
   z-index: 100;
   .background{
     /* z-index: -1; */
-    background: url(${(props:any) => props.background}) left top no-repeat;
+    background: url(${(props: any) => props.background}) left top no-repeat;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -73,9 +75,9 @@ export const TopDesc = styled.div`
       position: absolute;
       right: 2px;
       top: 2px;
-      font-size: ${style["font-size-s"]};
+      font-size: ${style['font-size-s']};
       line-height: 15px;
-      color: ${style["font-color-light"]};
+      color: ${style['font-color-light']};
       .play{
         vertical-align: top;
       }
@@ -97,10 +99,10 @@ export const TopDesc = styled.div`
       max-height: 70px;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: ${style["font-color-desc"]};
+      color: ${style['font-color-desc']};
       font-weight: 700;
       line-height: 1.5;
-      font-size: ${style["font-size-l"]};
+      font-size: ${style['font-size-l']};
     }
     .person{
       display: flex;
@@ -116,12 +118,12 @@ export const TopDesc = styled.div`
       }
       .name {
         line-height: 20px;
-        font-size: ${style["font-size-m"]};
-        color: ${style["font-color-desc"]};
+        font-size: ${style['font-size-m']};
+        color: ${style['font-color-desc']};
       }
     }
   }
-`
+`;
 
 export const Menu = styled.div`
   position: relative;
@@ -136,41 +138,41 @@ export const Menu = styled.div`
     flex-direction: column;
     line-height: 20px;
     text-align: center;
-    font-size: ${style["font-size-s"]};
+    font-size: ${style['font-size-s']};
     color: #3b1f1f;
-    color: ${style["font-color-desc"]};
+    color: ${style['font-color-desc']};
     z-index:1000;
     font-weight: 500;
     .iconfont {
       font-size: 20px;
     }
   }
-`
+`;
 
 export const SongList = styled.div`
   border-radius: 10px;
   opacity: 0.98;
-  .first_line{
+  .first_line {
     box-sizing: border-box;
     padding: 10px 0;
     margin-left: 10px;
     position: relative;
     justify-content: space-between;
-    border-bottom: 1px solid ${style["border-color"]};
-    .play_all{
+    border-bottom: 1px solid ${style['border-color']};
+    .play_all {
       display: inline-block;
       line-height: 24px;
-      color: ${style["font-color-desc"]};
+      color: ${style['font-color-desc']};
       .iconfont {
         font-size: 24px;
         margin-right: 10px;
         vertical-align: top;
       }
-      .sum{
-        font-size: ${style["font-size-s"]};
-        color: ${style["font-color-desc-v2"]};
+      .sum {
+        font-size: ${style['font-size-s']};
+        color: ${style['font-color-desc-v2']};
       }
-      >span{
+      > span {
         vertical-align: top;
       }
     }
@@ -178,11 +180,13 @@ export const SongList = styled.div`
       display: flex;
       align-items: center;
       position: absolute;
-      right: 0; top :0px; bottom: 0;
+      right: 0;
+      top: 0px;
+      bottom: 0;
       width: 130px;
       line-height: 34px;
-      background: ${style["theme-color"]};
-      color: ${style["font-color-light"]};
+      background: ${style['theme-color']};
+      color: ${style['font-color-light']};
       font-size: 0;
       border-radius: 3px;
       vertical-align: top;
@@ -191,25 +195,25 @@ export const SongList = styled.div`
         font-size: 10px;
         margin: 0 5px 0 10px;
       }
-      span{
+      span {
         font-size: 14px;
         line-height: 34px;
       }
+    }
   }
-}
-`
+`;
 export const SongItem = styled.ul`
-  >li{
+  > li {
     display: flex;
     height: 60px;
     align-items: center;
-    .index{
+    .index {
       width: 60px;
       height: 60px;
       line-height: 60px;
       text-align: center;
     }
-    .info{
+    .info {
       box-sizing: border-box;
       flex: 1;
       display: flex;
@@ -217,14 +221,14 @@ export const SongItem = styled.ul`
       padding: 5px 0;
       flex-direction: column;
       justify-content: space-around;
-      border-bottom: 1px solid ${style["border-color"]};
-      >span:first-child{
-        color: ${style["font-color-desc"]};
+      border-bottom: 1px solid ${style['border-color']};
+      > span:first-child {
+        color: ${style['font-color-desc']};
       }
-      >span:last-child{
-        font-size: ${style["font-size-s"]};
+      > span:last-child {
+        font-size: ${style['font-size-s']};
         color: #bba8a8;
       }
     }
   }
-`
+`;
