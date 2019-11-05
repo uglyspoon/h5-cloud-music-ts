@@ -42,21 +42,27 @@ export const PullDownLoading = styled.div`
 interface ScrollProps {
   direction?: 'vertical' | 'horizontal';
   refresh?: boolean;
-  onScroll?: any;
-  pullUp?: any;
-  pullDown?: any;
+  onScroll?: Function;
+  pullUp?: Function;
+  pullDown?: Function;
   pullUpLoading?: boolean;
   pullDownLoading?: boolean;
   bounceTop?: boolean; //是否支持向上吸顶
   bounceBottom?: boolean; //是否支持向上吸顶
-  click?: any;
-  children?: any;
+  click?: boolean;
+  children?: React.ReactNode;
 }
 
-const Scroll = forwardRef((props: ScrollProps, ref: any) => {
+// export interface ScrollRef {
+//   refresh(): void;
+//   scrollTo(x: number, y: number): void;
+//   getBScroll(): HTMLDivElement;
+// }
+
+const Scroll = forwardRef<any, ScrollProps>((props, ref) => {
   const [bScroll, setBScroll] = useState();
 
-  const scrollContainerRef = useRef<any>();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const {
     direction = 'vertical',
@@ -68,11 +74,11 @@ const Scroll = forwardRef((props: ScrollProps, ref: any) => {
     bounceBottom = true,
   } = props;
 
-  const { pullUp = () => {}, pullDown = () => {}, onScroll = null } = props;
+  const { pullUp = () => { }, pullDown = () => { }, onScroll = null } = props;
 
   useEffect(() => {
     if (bScroll) return;
-    const scroll = new BScroll(scrollContainerRef.current, {
+    const scroll = new BScroll(scrollContainerRef.current!, {
       scrollX: direction === 'horizontal',
       scrollY: direction === 'vertical',
       probeType: 3,
@@ -101,7 +107,7 @@ const Scroll = forwardRef((props: ScrollProps, ref: any) => {
     }
 
     if (onScroll) {
-      scroll.on('scroll', (scroll: any) => {
+      scroll.on('scroll', (scroll: number) => {
         onScroll(scroll);
       });
     }

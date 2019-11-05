@@ -5,7 +5,6 @@ import Slider from 'components/Slider';
 import { bannerType } from 'components/Slider';
 import {
   renderRoutes,
-  RouteConfigComponentProps,
   RouteConfig,
 } from 'react-router-config';
 import RecommendList from 'components/List';
@@ -26,8 +25,8 @@ interface RecommendProps extends RouteConfig {
   bannerList: bannerType[];
   recommendList: recommendType[];
   enterLoading: boolean;
-  getBannerDataDispatch: any;
-  getRecommendListDataDispatch: any;
+  getBannerDataDispatch: () => void;
+  getRecommendListDataDispatch: () => void;
 }
 
 const Recommend: React.FC<RecommendProps> = ({
@@ -45,6 +44,7 @@ const Recommend: React.FC<RecommendProps> = ({
     if (!recommendList.length) {
       getRecommendListDataDispatch();
     }
+    // eslint-disable-next-line
   }, []);
   return (
     <Content>

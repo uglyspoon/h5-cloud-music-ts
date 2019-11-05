@@ -3,20 +3,39 @@ import request from 'utils/request';
 
 import { RecommendStateType } from './data.d';
 
-export const changeBannerList = (data: RecommendStateType) => ({
+
+export interface changeBannerListType {
+  type: typeof actionTypes.CHANGE_BANNER;
+  data: RecommendStateType
+}
+
+export interface changeRecommendListType {
+  type: typeof actionTypes.CHANGE_RECOMMEND_LIST;
+  data: RecommendStateType
+}
+export interface changeEnterLoadingType {
+  type: typeof actionTypes.CHANGE_ENTER_LOADING;
+  data: boolean
+}
+
+export type RecommendActionTypes = changeBannerListType | changeRecommendListType | changeEnterLoadingType
+
+export const changeBannerList = (data: RecommendStateType): changeBannerListType => ({
   type: actionTypes.CHANGE_BANNER,
   data,
 });
 
-export const changeRecommendList = (data: RecommendStateType) => ({
+export const changeRecommendList = (data: RecommendStateType): changeRecommendListType => ({
   type: actionTypes.CHANGE_RECOMMEND_LIST,
   data,
 });
 
-export const changeEnterLoading = (data: boolean) => ({
+export const changeEnterLoading = (data: boolean): changeEnterLoadingType => ({
   type: actionTypes.CHANGE_ENTER_LOADING,
   data,
 });
+
+
 
 export const getBannerList = () => {
   return (dispatch: any) => {

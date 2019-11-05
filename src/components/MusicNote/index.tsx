@@ -3,7 +3,6 @@ import React, {
   useImperativeHandle,
   useRef,
   forwardRef,
-  CSSProperties,
 } from 'react';
 import styled from 'styled-components';
 import { prefixStyle } from 'utils';
@@ -60,7 +59,7 @@ const MusicNote = forwardRef<IMusicNote>((props, ref) => {
       item.setAttribute('running', 'false');
       item.addEventListener(
         'transitionend',
-        function() {
+        function () {
           this.style.display = 'none';
           this.style[transform] = `translate3d(0, 0, 0)`;
           this.setAttribute('running', 'false');

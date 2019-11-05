@@ -1,5 +1,7 @@
+import { categoryType, alphaType, RankType, palyModeType } from './types';
+
 //歌手种类
-export const categoryTypes = [
+export const categoryTypes: categoryType[] = [
   {
     name: '华语男',
     key: '1001',
@@ -63,7 +65,7 @@ export const categoryTypes = [
 ];
 
 //歌手首字母
-export const alphaTypes = [
+export const alphaTypes: alphaType[] = [
   { key: 'A', name: 'A' },
   { key: 'B', name: 'B' },
   { key: 'C', name: 'C' },
@@ -93,7 +95,7 @@ export const alphaTypes = [
 ];
 
 //排行榜编号
-export const RankTypes = {
+export const RankTypes: RankType = {
   '0': '云音乐新歌榜',
   '1': '云音乐热歌榜',
   '2': '网易原创歌曲榜',
@@ -127,7 +129,7 @@ export const ONE_PAGE_COUNT = 50;
 export const HEADER_HEIGHT = 45;
 
 //播放模式
-export const playMode = {
+export const playMode: palyModeType = {
   sequence: 0,
   loop: 1,
   random: 2,

@@ -1,5 +1,5 @@
-import { RankTypes } from './config';
-import { number } from 'prop-types';
+// import { RankTypes } from './config';
+// import { number } from 'prop-types';
 
 //处理歌手列表拼接歌手名字
 export const getName = (list: any[]): string => {
@@ -15,6 +15,7 @@ export const getName = (list: any[]): string => {
 interface IRankItem {
   tracks: any[];
 }
+
 export const filterIndex = (rankList: IRankItem[]): number => {
   for (let i = 0; i < rankList.length - 1; i++) {
     if (rankList[i].tracks.length && !rankList[i + 1].tracks.length) {
@@ -90,3 +91,6 @@ export const formatPlayTime = (interval: number) => {
   const second = (interval % 60).toString().padStart(2, '0');
   return `${minute}:${second}`;
 };
+
+
+export const trimPhone = (val: string) => val.replace(/(^\s+)|(\s+$)|\s+/g, "");

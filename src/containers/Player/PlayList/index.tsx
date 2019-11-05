@@ -24,6 +24,7 @@ import {
 import { playMode } from 'utils/config';
 import { prefixStyle } from 'utils';
 import Confirm from 'components/Confirm';
+import { AppState } from 'store';
 
 function PlayList(props: any) {
   const [isShow, setIsShow] = useState(false);
@@ -260,7 +261,7 @@ function PlayList(props: any) {
 }
 
 // 映射Redux全局的state到组件的props上
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppState) => ({
   currentIndex: state.player.currentIndex,
   currentSong: state.player.currentSong,
   playList: state.player.playList,

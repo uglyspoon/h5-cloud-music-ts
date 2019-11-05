@@ -52,13 +52,9 @@ function formatTimeToMillionSeconds(time: string) {
   return min * 60 + seconds * 1 + millionSec / 1000;
 }
 function findIndexOfLyric(array: iLyricItemProps[], time: number): number {
-  // array.forEach((item, idx)=> {
-  //   if (item.time > time) {
-  //     return idx
-  //   }
-  // })
   return array.findIndex(item => item.time > time);
 }
+
 function Player(props: any) {
   const [full, setFull] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -123,7 +119,6 @@ function Player(props: any) {
     setSongReady(false);
     let current = playList[currentIndex];
     changeCurrentDispatch(current);
-    console.log('current123', current);
     setPreSong(current);
     audioRef.current!.src = `https://music.163.com/song/media/outer/url?id=${current.id}.mp3`;
     audioRef.current!.play();
@@ -144,7 +139,7 @@ function Player(props: any) {
   useEffect(() => {
     // console.log('currentTime', currentTime)
     if (!scrollRef.current) return;
-    let bScroll = scrollRef.current.getBScroll();
+    let bScroll = scrollRef.current!.getBScroll();
     console.log('index', currentLyricIndex);
     if (currentLyricIndex > 5) {
       let lineEl = lyricLineRefs.current[currentLyricIndex - 5];
@@ -265,7 +260,7 @@ function Player(props: any) {
     normalPlayerRef.current!.style.display = 'none';
   };
 
-  const clickPlaying = (e: any, state: any) => {
+  const clickPlaying = (e: React.MouseEvent, state: any) => {
     e.stopPropagation();
     togglePlayingDispatch(state);
   };
@@ -402,8 +397,8 @@ function Player(props: any) {
                       <li
                         className={
                           idx !== lyricArray.length - 1 &&
-                          currentTime < lyricArray[idx + 1].time &&
-                          el.time < currentTime
+                            currentTime < lyricArray[idx + 1].time &&
+                            el.time < currentTime
                             ? 'current'
                             : ''
                         }
@@ -417,19 +412,19 @@ function Player(props: any) {
                 </Scroll>
               </LyricWrapper>
             ) : (
-              <div className='cdContainer'>
-                <CDWrapper ref={cdWrapperRef as any}>
-                  <div className='cd'>
-                    <img
-                      ref={cdImageRef as any}
-                      className={`image play ${playing ? '' : 'pause'}`}
-                      src={song.al.picUrl + '?param=400x400'}
-                      alt=''
-                    />
-                  </div>
-                </CDWrapper>
-              </div>
-            )}
+                <div className='cdContainer'>
+                  <CDWrapper ref={cdWrapperRef as any}>
+                    <div className='cd'>
+                      <img
+                        ref={cdImageRef as any}
+                        className={`image play ${playing ? '' : 'pause'}`}
+                        src={song.al.picUrl + '?param=400x400'}
+                        alt=''
+                      />
+                    </div>
+                  </CDWrapper>
+                </div>
+              )}
           </Middle>
           <Bottom className='bottom'>
             <ProgressWrapper>
@@ -515,13 +510,13 @@ function Player(props: any) {
                   &#xe609;
                 </i>
               ) : (
-                <i
-                  className='icon-mini iconfont icon-play'
-                  onClick={e => clickPlaying(e, true)}
-                >
-                  &#xe654;
+                  <i
+                    className='icon-mini iconfont icon-play'
+                    onClick={e => clickPlaying(e, true)}
+                  >
+                    &#xe654;
                 </i>
-              )}
+                )}
             </ProgressCircle>
           </div>
           <div

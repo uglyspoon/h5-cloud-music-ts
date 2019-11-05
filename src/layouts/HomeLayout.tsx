@@ -1,12 +1,10 @@
 import React from 'react';
-import { renderRoutes } from 'react-router-config';
+import { renderRoutes, RouteConfig } from 'react-router-config';
 import { Top, Tab, TabItem } from './styles';
 import { NavLink } from 'react-router-dom';
 import Player from 'containers/Player';
 
-function Home(props: any) {
-  const { route } = props;
-
+function Home(props: RouteConfig) {
   return (
     <div>
       <Top>
@@ -41,7 +39,7 @@ function Home(props: any) {
           </TabItem>
         </NavLink>
       </Tab>
-      {renderRoutes(route.routes)}
+      {renderRoutes(props.route.routes)}
       <Player />
     </div>
   );

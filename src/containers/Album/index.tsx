@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { withRouter, RouteComponentProps, RouteProps } from 'react-router-dom';
+import React, { useRef, useEffect, useState, } from 'react';
+import { withRouter, } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 
@@ -15,6 +15,7 @@ import { LoadingContainer } from 'assets/globalStyle';
 import Loading from 'components/Loading';
 import MusicNote from 'components/MusicNote';
 import { IMusicNote } from 'components/MusicNote';
+import { AppState } from 'store';
 
 interface IPos {
   x: number;
@@ -128,7 +129,7 @@ const Album: React.FC<AlbumProps> = ({
 };
 
 // 映射Redux全局的state到组件的props上
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppState) => ({
   currentAlbum: state.album.currentAlbum,
   loading: state.album.loading,
 });

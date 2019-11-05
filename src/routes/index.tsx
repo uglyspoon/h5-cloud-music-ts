@@ -32,7 +32,7 @@ const routes: RouteConfig[] = [
           {
             path: '/',
             exact: true,
-            render: () => <Redirect to={'/recommend'} />,
+            render: () => <Redirect to={'/user/login'} />,
           },
           {
             path: '/recommend',
