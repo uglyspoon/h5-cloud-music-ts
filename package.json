@@ -2,7 +2,7 @@
   "name": "h5-cloud-music-ts",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://uglyspoon.com/html/cloud-music/",
+  "homepage": "/h5-cloud-music-ts",
   "dependencies": {
     "axios": "^0.19.0",
     "better-scroll": "^2.0.0-alpha.20",
