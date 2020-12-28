@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/html/cloud-music/static/css/main.688fe8ab.chunk.css",
+    "main.js": "/html/cloud-music/static/js/main.0c67a154.chunk.js",
+    "main.js.map": "/html/cloud-music/static/js/main.0c67a154.chunk.js.map",
+    "runtime-main.js": "/html/cloud-music/static/js/runtime-main.9626bd2b.js",
+    "runtime-main.js.map": "/html/cloud-music/static/js/runtime-main.9626bd2b.js.map",
+    "static/css/2.dce8a878.chunk.css": "/html/cloud-music/static/css/2.dce8a878.chunk.css",
+    "static/js/2.08968ddd.chunk.js": "/html/cloud-music/static/js/2.08968ddd.chunk.js",
+    "static/js/2.08968ddd.chunk.js.map": "/html/cloud-music/static/js/2.08968ddd.chunk.js.map",
+    "index.html": "/html/cloud-music/index.html",
+    "precache-manifest.19800b73ed2fbfffbb91ab769f650d64.js": "/html/cloud-music/precache-manifest.19800b73ed2fbfffbb91ab769f650d64.js",
+    "service-worker.js": "/html/cloud-music/service-worker.js",
+    "static/css/2.dce8a878.chunk.css.map": "/html/cloud-music/static/css/2.dce8a878.chunk.css.map",
+    "static/css/main.688fe8ab.chunk.css.map": "/html/cloud-music/static/css/main.688fe8ab.chunk.css.map",
+    "static/media/back.svg": "/html/cloud-music/static/media/back.449dd8f7.svg",
+    "static/media/mail.svg": "/html/cloud-music/static/media/mail.2dbfab53.svg",
+    "static/media/netease-logo-white.svg": "/html/cloud-music/static/media/netease-logo-white.7ad4505f.svg",
+    "static/media/sina.svg": "/html/cloud-music/static/media/sina.91d588ff.svg",
+    "static/media/wechat.svg": "/html/cloud-music/static/media/wechat.be161294.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9626bd2b.js",
+    "static/css/2.dce8a878.chunk.css",
+    "static/js/2.08968ddd.chunk.js",
+    "static/css/main.688fe8ab.chunk.css",
+    "static/js/main.0c67a154.chunk.js"
+  ]
+}
