@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "/h5-cloud-music-ts",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "better-scroll": "^2.0.0-alpha.20",
     "create-keyframe-animation": "^0.1.0",
     "dayjs": "^1.8.16",
