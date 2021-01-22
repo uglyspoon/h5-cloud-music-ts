@@ -8,12 +8,23 @@
 > 本项目基于[React 16.8打造精美音乐WebApp(js)](https://github.com/sanyuan0704/react-cloud-music)
 > 感谢[sanyuan0704](https://github.com/sanyuan0704)
 
-### 🏠 [在线预览](https://uglyspoon.com/html/cloud-music)
+由于之前的云服务器到期了，需要本地启动接口服务，详见
+https://github.com/Binaryify/NeteaseCloudMusicApi  
+需要拉取项目到本地并启动接口服务，步骤如下：
+```
+1. git clone https://github.com/Binaryify/NeteaseCloudMusicApi.git
+2. npm install 
+3. npm run start
 
-## Install
+```
+接口服务默认启动端口是3000，这个在文件src/utils/request.ts有定义，可自行修改
+
+## How To Install 
 
 ```sh
-npm i
+1. git clone https://github.com/uglyspoon/h5-cloud-music-ts.git
+2. npm install 
+
 ```
 
 ## Usage
