@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
-export const baseUrl = 'https://uglyspoon.com/api/netease/';
+export const baseUrl = 'http://localhost:3000/';
 
 axios.defaults.baseURL = baseUrl;
 // axios.defaults.headers.common['Authorization'] = cookie.get('token');

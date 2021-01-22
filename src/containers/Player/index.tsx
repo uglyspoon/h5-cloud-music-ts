@@ -121,13 +121,32 @@ function Player(props: any) {
     changeCurrentDispatch(current);
     setPreSong(current);
     audioRef.current!.src = `https://music.163.com/song/media/outer/url?id=${current.id}.mp3`;
-    audioRef.current!.play();
-    setTimeout(() => {
-      setSongReady(true);
-    }, 100);
-    togglePlayingDispatch(true);
-    setCurrentTime(0);
-    setDuration((current.dt / 1000) | 0);
+    // audioRef.current!.play();
+
+    let  playPromise = audioRef.current!.play();
+    if (playPromise !== undefined) {
+        playPromise
+        .then(_ => {
+          setTimeout(() => {
+            setSongReady(true);
+          }, 100);
+          togglePlayingDispatch(true);
+          setCurrentTime(0);
+          setDuration((current.dt / 1000) | 0);
+          console.log("audio played auto");
+
+        })
+        .catch(error => {
+          console.log("播放链接不存在，无法播放");
+          setTimeout(() => {
+            setSongReady(true);
+          }, 100);
+          togglePlayingDispatch(false);
+        });
+    }
+    
+   
+    
     // eslint-disable-next-line
   }, [currentIndex, playList]);
 
@@ -185,7 +204,7 @@ function Player(props: any) {
 
   useEffect(() => {
     const { lyricArray, tlyricArray } = sortFunc(lyrics);
-    console.log(lyricArray, tlyricArray);
+    // console.log(lyricArray, tlyricArray);
     setLyricArray(lyricArray);
   }, [lyrics, sortFunc]);
 
@@ -489,7 +508,7 @@ function Player(props: any) {
               <img
                 className={`play ${playing ? '' : 'pause'}`}
                 ref={miniImageRef as any}
-                src={song.al.picUrl}
+                src={song.al.picUrl.replace('p3', 'p2')}
                 width='40'
                 height='40'
                 alt='img'

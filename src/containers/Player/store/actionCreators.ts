@@ -121,8 +121,8 @@ export const getSongLyric = (id: number) => {
   return (dispatch: any) => {
     getSongLyricRequest(id).then((data: any) => {
       let lyrics = {
-        lyric: data.lrc.lyric,
-        tlyric: data.tlyric.lyric,
+        lyric: data.lrc ? data.lrc.lyric: undefined,
+        tlyric:data.tlyric ? data.tlyric.lyric : undefined,
       };
       dispatch(changeCurrentLyrics(lyrics));
     });
