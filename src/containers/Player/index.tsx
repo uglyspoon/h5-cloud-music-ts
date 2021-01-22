@@ -203,7 +203,7 @@ function Player(props: any) {
   }, []);
 
   useEffect(() => {
-    const { lyricArray, tlyricArray } = sortFunc(lyrics);
+    const { lyricArray } = sortFunc(lyrics);
     // console.log(lyricArray, tlyricArray);
     setLyricArray(lyricArray);
   }, [lyrics, sortFunc]);
