@@ -1,23 +1,20 @@
-import {
-  CHANGE_CURRENT_ALBUM,
-  CHANGE_LOADING,
-  CHANGE_PULL_UP_LOADING,
-} from './constants';
-// import {axiosInstance} from 'utils/request';
+// import { axiosInstance } from 'utils/request';
+
+import { AlbumActionTypes } from '../types';
 import { getRecommendListDetailRequest } from './services';
 
 export const changeCurrentAlbum = (data: any) => ({
-  type: CHANGE_CURRENT_ALBUM,
+  type: AlbumActionTypes.CHANGE_CURRENT_ALBUM,
   data,
 });
 
 export const changePullUpLoading = (data: boolean) => ({
-  type: CHANGE_PULL_UP_LOADING,
+  type: AlbumActionTypes.CHANGE_PULL_UP_LOADING,
   data,
 });
 
 export const changeLoading = (data: boolean) => ({
-  type: CHANGE_LOADING,
+  type: AlbumActionTypes.CHANGE_LOADING,
   data,
 });
 export const getAlbumList = (id: number, fromURL: string) => {
@@ -38,6 +35,7 @@ export const getAlbumList = (id: number, fromURL: string) => {
       .then((res: any) => {
         dispatch(changeLoading(false));
         let data = res.playlist;
+        console.log('data', data);
         dispatch(changeCurrentAlbum(data));
         // dispatch(changeStartIndex(0));
         // dispatch(changeTotalCount(data.tracks.length))

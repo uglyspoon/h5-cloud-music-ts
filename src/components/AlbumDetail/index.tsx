@@ -3,14 +3,14 @@ import { TopDesc, Menu } from './styles';
 import SongsList from 'containers/SongList';
 
 export interface AlbumDetailProps {
-  currentAlbum: object;
-  pullUpLoading: boolean;
-  musicAnimation?: boolean;
+  currentAlbum: any;
+  pullUpLoading?: boolean;
+  musicAnimation?: (x: number, y: number) => void;
 }
 
-function AlbumDetail(props: any) {
+function AlbumDetail(props: AlbumDetailProps) {
   const { currentAlbum, pullUpLoading, musicAnimation } = props;
-
+  console.log('currentAlbum', currentAlbum);
   const renderTopDesc = () => {
     return (
       <TopDesc background={currentAlbum.coverImgUrl}>
@@ -31,9 +31,9 @@ function AlbumDetail(props: any) {
           <div className='title'>{currentAlbum.name}</div>
           <div className='person'>
             <div className='avatar'>
-              <img src={currentAlbum.creator.avatarUrl} alt='' />
+              <img src={currentAlbum.avatarUrl} alt='' />
             </div>
-            <div className='name'>{currentAlbum.creator.nickname}</div>
+            <div className='name'>{currentAlbum.nickname}</div>
           </div>
         </div>
       </TopDesc>

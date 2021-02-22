@@ -1,10 +1,8 @@
 import { produce } from 'immer';
+import { AlbumAction, AlbumState, AlbumActionTypes } from '../types';
 
-import * as actionTypes from './constants';
-const defaultState = {
-  currentAlbum: {
-    creator: {},
-  },
+const defaultState: AlbumState = {
+  currentAlbum: {},
   pullUpLoading: false,
   loading: false,
   startIndex: 0,
@@ -12,15 +10,23 @@ const defaultState = {
   scrollY: 0,
 };
 
-export default (state = defaultState, action: any) => {
-  return produce(state, draft => {
+export default (
+  state: AlbumState = defaultState,
+  action: AlbumAction
+): AlbumState => {
+  return produce(state, (draft) => {
     switch (action.type) {
-      case actionTypes.CHANGE_CURRENT_ALBUM:
+      case AlbumActionTypes.CHANGE_CURRENT_ALBUM:
         draft.currentAlbum = action.data;
         break;
-      case actionTypes.CHANGE_LOADING:
+      case AlbumActionTypes.CHANGE_LOADING:
         draft.loading = action.data;
         break;
+      case AlbumActionTypes.CHANGE_PULL_UP_LOADING:
+        draft.pullUpLoading = action.data;
+        break;
+      default:
+        return state;
     }
   });
 };

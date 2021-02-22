@@ -50,7 +50,7 @@ export const TopDesc = styled.div`
   height: 200px;
   position: relative;
   z-index: 100;
-  .background{
+  .background {
     /* z-index: -1; */
     background: url(${(props: any) => props.background}) left top no-repeat;
     position: absolute;
@@ -59,7 +59,7 @@ export const TopDesc = styled.div`
     filter: blur(20px);
     transform: scale(1.5);
   }
-  .img_wrapper{
+  .img_wrapper {
     width: 120px;
     height: 120px;
     position: relative;
@@ -69,7 +69,7 @@ export const TopDesc = styled.div`
       width: 100%;
       height: 35px;
       border-radius: 3px;
-      background: linear-gradient(hsla(0,0%,43%,.4),hsla(0,0%,100%,0));
+      background: linear-gradient(hsla(0, 0%, 43%, 0.4), hsla(0, 0%, 100%, 0));
     }
     .play_count {
       position: absolute;
@@ -78,14 +78,14 @@ export const TopDesc = styled.div`
       font-size: ${style['font-size-s']};
       line-height: 15px;
       color: ${style['font-color-light']};
-      .play{
+      .play {
         vertical-align: top;
       }
     }
-    img{
+    img {
       width: 120px;
       height: 120px;
-      border-radius:3px;
+      border-radius: 3px;
     }
   }
   .desc_wrapper {
@@ -95,7 +95,7 @@ export const TopDesc = styled.div`
     justify-content: space-around;
     height: 120px;
     padding: 0 10px;
-    .title{
+    .title {
       max-height: 70px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -104,13 +104,13 @@ export const TopDesc = styled.div`
       line-height: 1.5;
       font-size: ${style['font-size-l']};
     }
-    .person{
+    .person {
       display: flex;
-      .avatar{
+      .avatar {
         width: 20px;
         height: 20px;
         margin-right: 5px;
-        img{
+        img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
@@ -133,7 +133,7 @@ export const Menu = styled.div`
   margin: 0 30px;
   margin-top: -20px;
   margin-bottom: 10px;
-  >div {
+  > div {
     display: flex;
     flex-direction: column;
     line-height: 20px;
@@ -141,7 +141,7 @@ export const Menu = styled.div`
     font-size: ${style['font-size-s']};
     color: #3b1f1f;
     color: ${style['font-color-desc']};
-    z-index:1000;
+    z-index: 1000;
     font-weight: 500;
     .iconfont {
       font-size: 20px;

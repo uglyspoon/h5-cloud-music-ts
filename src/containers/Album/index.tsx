@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState, } from 'react';
-import { withRouter, } from 'react-router-dom';
+import React, { useRef, useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 
@@ -10,19 +10,24 @@ import style from 'assets/globalStyle';
 import { HEADER_HEIGHT } from 'utils/config';
 import { RouteConfigComponentProps } from 'react-router-config';
 import AlbumDetail from 'components/AlbumDetail';
-import * as actionTypes from './store/actionCreators';
+import { getAlbumList, changePullUpLoading } from './store/actionCreators';
 import { LoadingContainer } from 'assets/globalStyle';
 import Loading from 'components/Loading';
 import MusicNote from 'components/MusicNote';
 import { IMusicNote } from 'components/MusicNote';
 import { AppState } from 'store';
+import { ICurrentAlbum } from './types';
 
+export interface ImusicAnimation {
+  x: number;
+  y: number;
+}
 interface IPos {
   x: number;
   y: number;
 }
 interface AlbumProps extends RouteConfigComponentProps {
-  currentAlbum: any;
+  currentAlbum: ICurrentAlbum;
   loading: boolean;
   pullUpLoading?: boolean;
   getAlbumDataDispatch: any;
@@ -57,6 +62,7 @@ const Album: React.FC<AlbumProps> = ({
     } else if (/rank/.test(pathName)) {
       urlStr = '/rank';
     }
+    console.log(id, urlStr);
     getAlbumDataDispatch(id, urlStr);
   }, [id, history.location.pathname, getAlbumDataDispatch]);
 
@@ -138,10 +144,10 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getAlbumDataDispatch(id: number, fromURL: string) {
-      dispatch(actionTypes.getAlbumList(id, fromURL));
+      dispatch(getAlbumList(id, fromURL));
     },
     changePullUpLoadingStateDispatch(loading: boolean) {
-      dispatch(actionTypes.changePullUpLoading(loading));
+      dispatch(changePullUpLoading(loading));
     },
   };
 };
