@@ -5,11 +5,11 @@
   "homepage": "/h5-cloud-music-ts",
   "dependencies": {
     "axios": "^0.21.1",
-    "better-scroll": "^2.0.0-alpha.20",
+    "better-scroll": "^2.4.2",
     "create-keyframe-animation": "^0.1.0",
     "dayjs": "^1.8.16",
     "debounce": "^1.2.0",
-    "immer": "^8.0.1",
+    "immer": "^9.0.12",
     "moment": "^2.24.0",
     "query-string": "^6.8.2",
     "react": "^16.9.0",
@@ -22,7 +22,7 @@
     "react-transition-group": "^4.2.2",
     "redux-thunk": "2.3.0",
     "styled-components": "^4.3.2",
-    "swiper": "^4.5.0",
+    "swiper": "6.5.1",
     "typescript": "3.5.3"
   },
   "scripts": {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SliderContainer } from './styles';
-import 'swiper/dist/css/swiper.css';
+import 'swiper/swiper-bundle.css';
 import Swiper from 'swiper';
 
 export type bannerType = {
@@ -30,7 +30,7 @@ const Slider: React.FC<SliderPorps> = ({ bannerList = [] }) => {
     <SliderContainer>
       <div className='slider-container'>
         <div className='swiper-wrapper'>
-          {bannerList.map(slider => {
+          {bannerList.map((slider) => {
             return (
               <div className='swiper-slide' key={slider.imageUrl}>
                 <div className='slider-nav'>
